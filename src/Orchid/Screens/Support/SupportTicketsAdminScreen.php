@@ -17,6 +17,7 @@ class SupportTicketsAdminScreen extends Screen
     {
         $tickets = SupportTicket::query()
             ->with(['createdBy', 'firstMessage.sentBy'])
+            ->defaultSort('created_at', 'desc')
             ->latest('updated_at')
             ->paginate();
 
