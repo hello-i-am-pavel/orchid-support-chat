@@ -1,0 +1,24 @@
+{
+    "name": "hello-i-am-pavel/orchid-support-chat",
+    "description": "Chat with your site supports on Laravel Orchid",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hiap\\OrchidSupportChat\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Hiap\\OrchidSupportChat\\HiapOrchidSupportChatServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "orchid/platform": "^14.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
