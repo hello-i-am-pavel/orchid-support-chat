@@ -26,7 +26,7 @@ class SupportTicketAgentRepliedNotification extends Notification
 
     public function toDashboard(object $notifiable): DashboardMessage
     {
-        return DashboardMessage::make()
+        return (new DashboardMessage())
             ->title(__('New response from support'))
             ->message(
                 __('A new message has appeared in the #:number request', [

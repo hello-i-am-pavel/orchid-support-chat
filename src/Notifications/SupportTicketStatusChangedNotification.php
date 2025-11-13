@@ -27,7 +27,7 @@ class SupportTicketStatusChangedNotification extends Notification
 
     public function toDashboard(object $notifiable): DashboardMessage
     {
-        return DashboardMessage::make()
+        return (new DashboardMessage())
             ->title(__('The status of the request has been updated'))
             ->message(
                 __('The #:number request is now in the :status status', [

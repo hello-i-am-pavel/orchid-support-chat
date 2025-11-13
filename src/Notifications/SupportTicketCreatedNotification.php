@@ -26,7 +26,7 @@ class SupportTicketCreatedNotification extends Notification
 
     public function toDashboard(object $notifiable): DashboardMessage
     {
-        return DashboardMessage::make()
+        return (new DashboardMessage())
             ->title(__('New appeal'))
             ->message(__('Request #:number created', ['number' => $this->ticket->number]))
             ->action(route('platform.hiap.support-ticket.chat', $this->ticket->id))
