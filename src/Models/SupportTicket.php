@@ -6,15 +6,17 @@ use App\Models\User;
 use Carbon\Carbon;
 use Hiap\OrchidSupportChat\Models\Enum\TicketStatus;
 use Hiap\OrchidSupportChat\Notifications\SupportTicketCreatedNotification;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 use Orchid\Attachment\Attachable;
 use Orchid\Filters\Filterable;
+use Orchid\Filters\Types\Where;
+use Orchid\Filters\Types\WhereDateStartEnd;
 use Orchid\Screen\AsSource;
 
 /**
@@ -34,16 +36,20 @@ use Orchid\Screen\AsSource;
  */
 class SupportTicket extends Model
 {
-    use HasFactory;
     use AsSource;
     use Attachable;
     use Filterable;
+    use Searchable;
 
     /**
      * Use UUIDs as primary keys
      */
     protected $keyType = 'string';
     public $incrementing = false;
+
+    protected $casts = [
+        'status' => TicketStatus::class,
+    ];
 
     protected $fillable = [
         'created_by',
@@ -52,8 +58,20 @@ class SupportTicket extends Model
         'status_changed_by',
     ];
 
-    protected $casts = [
-        'status' => TicketStatus::class,
+    protected $allowedSorts = [
+        'created_by',
+        'number',
+        'status',
+        'status_changed_by',
+        'created_at',
+    ];
+
+    protected $allowedFilters = [
+        'status' => Where::class,
+        'created_by' => Where::class,
+        'created_at' => WhereDateStartEnd::class,
+        'number' => Where::class,
+        'status_changed_by' => Where::class,
     ];
 
     public function createdBy(): BelongsTo
